@@ -1,5 +1,9 @@
 namespace com.training;
 
+using {cuid,
+             //managed
+       } from '@sap/cds/common';
+
 
 entity course {
     key ID      : UUID;
