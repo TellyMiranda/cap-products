@@ -2,7 +2,7 @@ namespace com.logali;
 
 using {
     cuid,
-    managed
+    //managed
 } from '@sap/cds/common';
 
 type Name : String(50);
