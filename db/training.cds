@@ -10,6 +10,7 @@ entity course {
                       on Student.Course = $self;
 }
 
+
 entity Student : cuid {
     Course : Association to many StudentCourse
                  on Course.Student = $self;
