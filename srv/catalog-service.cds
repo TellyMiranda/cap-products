@@ -13,5 +13,7 @@ service CatalogService {
     entity Months          as projection on logali.sales.Months;
     entity Order           as projection on logali.sales.Orders;
     entity OrdersItem      as projection on logali.sales.OrdersItems;
-    //entity training        as projection on logali.
+    //Entidad para referenciar el USING training y evitar Warning
+    entity training_aux    as projection on training.course;
 }
+
