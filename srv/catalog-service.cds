@@ -16,4 +16,3 @@ service CatalogService {
     //Entidad para referenciar el USING training y evitar Warning
     entity training_aux    as projection on training.course;
 }
-
