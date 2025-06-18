@@ -1,15 +1,17 @@
-using {com.logali as logali} from '../db/schema';
+using com.logali as logali from '../db/schema';
+using com.training as training from '../db/training';
 
 service CatalogService {
-    entity Products        as projection on logali.Products;
-    entity Suppliers       as projection on logali.Suppliers;
-    entity Currency        as projection on logali.Currencies;
-    entity DimensionUnits  as projection on logali.DimensionUnits;
-    entity Category        as projection on logali.Categories;
-    entity SalesDatas      as projection on logali.SalesData;
-    entity Reviews         as projection on logali.UnitOfMesasures;
-    entity UnitOfMesasures as projection on logali.ProductReview;
-    entity Months          as projection on logali.Months;
-    entity Order           as projection on logali.Orders;
-    entity OrdersItem      as projection on logali.OrdersItems;
+    entity Products        as projection on logali.Materials.Products;
+    entity Suppliers       as projection on logali.sales.Suppliers;
+    entity Currency        as projection on logali.Materials.Currencies;
+    entity DimensionUnits  as projection on logali.Materials.DimensionUnits;
+    entity Category        as projection on logali.Materials.Categories;
+    entity SalesDatas      as projection on logali.sales.SalesData;
+    entity Reviews         as projection on logali.Materials.ProductReview;
+    entity UnitOfMesasures as projection on logali.Materials.UnitOfMesasures;
+    entity Months          as projection on logali.sales.Months;
+    entity Order           as projection on logali.sales.Orders;
+    entity OrdersItem      as projection on logali.sales.OrdersItems;
+    //entity training        as projection on logali.
 }
