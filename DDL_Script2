@@ -1,10 +1,6 @@
 
-CREATE TABLE com_logali_Products (
+CREATE TABLE com_logali_Materials_Products (
   ID NVARCHAR(36) NOT NULL,
-  createdAt TIMESTAMP_TEXT,
-  createdBy NVARCHAR(255),
-  modifiedAt TIMESTAMP_TEXT,
-  modifiedBy NVARCHAR(255),
   Name NVARCHAR(255) NOT NULL,
   Description NVARCHAR(255),
   ImageURL NVARCHAR(255),
@@ -18,36 +14,62 @@ CREATE TABLE com_logali_Products (
   Suppliers_Id NVARCHAR(36),
   Supplier_ID NVARCHAR(36),
   UnitOfMesasures_ID NVARCHAR(2),
-  ToUnitOfMesasures_ID_ID NVARCHAR(2),
   Currency_ID NVARCHAR(3),
   DimensionUnits_ID NVARCHAR(2),
   Category_ID NVARCHAR(1),
-  PriceCondition NVARCHAR(2),
-  PriceDetermination NVARCHAR(3),
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_Orders (
+CREATE TABLE com_logali_Materials_Categories (
+  ID NVARCHAR(1) NOT NULL,
+  name NVARCHAR(255),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_logali_Materials_ProductReview (
+  ID NVARCHAR(36) NOT NULL,
+  Name NVARCHAR(255),
+  Rating INTEGER,
+  Comment NVARCHAR(255),
+  createdAt NVARCHAR(255),
+  Product_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_logali_Materials_StockAvailability (
+  ID NVARCHAR(1) NOT NULL,
+  Description NVARCHAR(255),
+  Product_ID NVARCHAR(36),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_logali_Materials_Currencies (
+  ID NVARCHAR(3) NOT NULL,
+  Description NVARCHAR(255),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_logali_Materials_UnitOfMesasures (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(255),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_logali_Materials_DimensionUnits (
+  ID NVARCHAR(2) NOT NULL,
+  Description NVARCHAR(255),
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_logali_sales_Orders (
   ID NVARCHAR(36) NOT NULL,
   Date DATE_TEXT,
   Customer NVARCHAR(255),
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_OrdersItems (
+CREATE TABLE com_logali_sales_Suppliers (
   ID NVARCHAR(36) NOT NULL,
-  Order_ID NVARCHAR(36),
-  Product_ID NVARCHAR(36),
-  Quantity INTEGER,
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE com_logali_Suppliers (
-  ID NVARCHAR(36) NOT NULL,
-  createdAt TIMESTAMP_TEXT,
-  createdBy NVARCHAR(255),
-  modifiedAt TIMESTAMP_TEXT,
-  modifiedBy NVARCHAR(255),
   Name NVARCHAR(255) NOT NULL,
   Address_Street NVARCHAR(255),
   Address_City NVARCHAR(255),
@@ -60,63 +82,15 @@ CREATE TABLE com_logali_Suppliers (
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_Categories (
-  ID NVARCHAR(1) NOT NULL,
-  name NVARCHAR(255),
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE com_logali_StockAvailability (
-  ID NVARCHAR(1) NOT NULL,
-  Description NVARCHAR(255),
-  Product_ID NVARCHAR(36),
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE com_logali_Currencies (
-  ID NVARCHAR(3) NOT NULL,
-  Description NVARCHAR(255),
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE com_logali_UnitOfMesasures (
-  ID NVARCHAR(2) NOT NULL,
-  Description NVARCHAR(255),
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE com_logali_DimensionUnits (
-  ID NVARCHAR(2) NOT NULL,
-  Description NVARCHAR(255),
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE com_logali_Months (
+CREATE TABLE com_logali_sales_Months (
   ID NVARCHAR(2) NOT NULL,
   Description NVARCHAR(255),
   ShortDescription NVARCHAR(3),
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_ProductReview (
+CREATE TABLE com_logali_sales_SalesData (
   ID NVARCHAR(36) NOT NULL,
-  createdAt TIMESTAMP_TEXT,
-  createdBy NVARCHAR(255),
-  modifiedAt TIMESTAMP_TEXT,
-  modifiedBy NVARCHAR(255),
-  Name NVARCHAR(255),
-  Rating INTEGER,
-  Comment NVARCHAR(255),
-  Product_ID NVARCHAR(36),
-  PRIMARY KEY(ID)
-);
-
-CREATE TABLE com_logali_SalesData (
-  ID NVARCHAR(36) NOT NULL,
-  createdAt TIMESTAMP_TEXT,
-  createdBy NVARCHAR(255),
-  modifiedAt TIMESTAMP_TEXT,
-  modifiedBy NVARCHAR(255),
   DeliveryDate DATETIME_TEXT,
   Revenue DECIMAL(16, 2),
   Product_ID NVARCHAR(36),
@@ -125,67 +99,67 @@ CREATE TABLE com_logali_SalesData (
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_course (
+CREATE TABLE com_logali_sales_OrdersItems (
+  ID NVARCHAR(36) NOT NULL,
+  Order_ID NVARCHAR(36),
+  Product_ID NVARCHAR(36),
+  Quantity INTEGER,
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE com_training_course (
   ID NVARCHAR(36) NOT NULL,
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_Student (
+CREATE TABLE com_training_Student (
   ID NVARCHAR(36) NOT NULL,
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_StudentCourse (
+CREATE TABLE com_training_StudentCourse (
   ID NVARCHAR(36) NOT NULL,
   Student_ID NVARCHAR(36),
   Course_ID NVARCHAR(36),
   PRIMARY KEY(ID)
 );
 
-CREATE TABLE com_logali_Products_texts (
-  locale NVARCHAR(14) NOT NULL,
-  ID NVARCHAR(36) NOT NULL,
-  Name NVARCHAR(255) NOT NULL,
-  Description NVARCHAR(255),
-  PRIMARY KEY(locale, ID)
-);
-
-CREATE TABLE com_logali_Categories_texts (
+CREATE TABLE com_logali_Materials_Categories_texts (
   locale NVARCHAR(14) NOT NULL,
   ID NVARCHAR(1) NOT NULL,
   name NVARCHAR(255),
   PRIMARY KEY(locale, ID)
 );
 
-CREATE TABLE com_logali_StockAvailability_texts (
+CREATE TABLE com_logali_Materials_StockAvailability_texts (
   locale NVARCHAR(14) NOT NULL,
   ID NVARCHAR(1) NOT NULL,
   Description NVARCHAR(255),
   PRIMARY KEY(locale, ID)
 );
 
-CREATE TABLE com_logali_Currencies_texts (
+CREATE TABLE com_logali_Materials_Currencies_texts (
   locale NVARCHAR(14) NOT NULL,
   ID NVARCHAR(3) NOT NULL,
   Description NVARCHAR(255),
   PRIMARY KEY(locale, ID)
 );
 
-CREATE TABLE com_logali_UnitOfMesasures_texts (
+CREATE TABLE com_logali_Materials_UnitOfMesasures_texts (
   locale NVARCHAR(14) NOT NULL,
   ID NVARCHAR(2) NOT NULL,
   Description NVARCHAR(255),
   PRIMARY KEY(locale, ID)
 );
 
-CREATE TABLE com_logali_DimensionUnits_texts (
+CREATE TABLE com_logali_Materials_DimensionUnits_texts (
   locale NVARCHAR(14) NOT NULL,
   ID NVARCHAR(2) NOT NULL,
   Description NVARCHAR(255),
   PRIMARY KEY(locale, ID)
 );
 
-CREATE TABLE com_logali_Months_texts (
+CREATE TABLE com_logali_sales_Months_texts (
   locale NVARCHAR(14) NOT NULL,
   ID NVARCHAR(2) NOT NULL,
   Description NVARCHAR(255),
@@ -193,27 +167,141 @@ CREATE TABLE com_logali_Months_texts (
   PRIMARY KEY(locale, ID)
 );
 
-CREATE TABLE com_logali_Suppliers_texts (
-  locale NVARCHAR(14) NOT NULL,
-  ID NVARCHAR(36) NOT NULL,
-  Name NVARCHAR(255) NOT NULL,
-  PRIMARY KEY(locale, ID)
-);
+CREATE VIEW training_aux AS SELECT
+  course_0.ID
+FROM com_training_course AS course_0;
 
-CREATE VIEW com_logali_SelProducts3 AS SELECT
-  ProductReview_1.Rating,
+CREATE VIEW CatalogService_Supplier AS SELECT
+  Suppliers_0.ID,
+  Suppliers_0.Name,
+  Suppliers_0.Email,
+  Suppliers_0.Phone,
+  Suppliers_0.Fax
+FROM com_logali_sales_Suppliers AS Suppliers_0;
+
+CREATE VIEW CatalogService_Reviews AS SELECT
+  ProductReview_0.ID,
+  ProductReview_0.Name,
+  ProductReview_0.Rating,
+  ProductReview_0.Comment,
+  ProductReview_0.createdAt,
+  ProductReview_0.Product_ID AS ToProduct_ID
+FROM com_logali_Materials_ProductReview AS ProductReview_0;
+
+CREATE VIEW CatalogService_SalesData AS SELECT
+  SalesData_0.ID,
+  SalesData_0.DeliveryDate,
+  SalesData_0.Revenue,
+  SalesData_0.Currency_ID AS CurrencyKey,
+  DeliveryMonth_1.ID AS DeliveryMonthId,
+  DeliveryMonth_1.Description AS DeliveryMonth,
+  SalesData_0.Product_ID AS ToProduct_ID
+FROM (com_logali_sales_SalesData AS SalesData_0 LEFT JOIN com_logali_sales_Months AS DeliveryMonth_1 ON SalesData_0.DeliveryMonth_ID = DeliveryMonth_1.ID);
+
+CREATE VIEW CatalogService_StockAvailability AS SELECT
+  StockAvailability_0.ID,
+  StockAvailability_0.Description,
+  StockAvailability_0.Product_ID AS ToProduct_ID
+FROM com_logali_Materials_StockAvailability AS StockAvailability_0;
+
+CREATE VIEW CatalogService_VH_Categories AS SELECT
+  Categories_0.ID AS Code,
+  Categories_0.name AS Text
+FROM com_logali_Materials_Categories AS Categories_0;
+
+CREATE VIEW CatalogService_VH_Currencies AS SELECT
+  Currencies_0.ID AS Code,
+  Currencies_0.Description AS Text
+FROM com_logali_Materials_Currencies AS Currencies_0;
+
+CREATE VIEW CatalogService_VH_UnitOfMeasure AS SELECT
+  UnitOfMesasures_0.ID AS Code,
+  UnitOfMesasures_0.Description AS Text
+FROM com_logali_Materials_UnitOfMesasures AS UnitOfMesasures_0;
+
+CREATE VIEW CatalogService_VH_DimensionUnit AS SELECT
+  DimensionUnits_0.ID AS Code,
+  DimensionUnits_0.Description AS Text
+FROM com_logali_Materials_DimensionUnits AS DimensionUnits_0;
+
+CREATE VIEW MyService_SuppliersProduct AS SELECT
+  Products_0.ID,
   Products_0.Name,
-  sum(Products_0.Price) AS TotalPrice
-FROM (com_logali_Products AS Products_0 LEFT JOIN com_logali_ProductReview AS ProductReview_1 ON Products_0.Name = ProductReview_1.Name)
-GROUP BY ProductReview_1.Rating, Products_0.Name
-ORDER BY Rating;
+  Products_0.Description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Suppliers_Id,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMesasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID,
+  Supplier_1.Address_Street,
+  Supplier_1.Address_City,
+  Supplier_1.Address_State,
+  Supplier_1.Address_PostalCode,
+  Supplier_1.Address_Country
+FROM (com_logali_Materials_Products AS Products_0 LEFT JOIN com_logali_sales_Suppliers AS Supplier_1 ON Products_0.Supplier_ID = Supplier_1.ID)
+WHERE (Supplier_1.Address_PostalCode = 98074) AND (Products_0.Name = 'Bread');
+
+CREATE VIEW MyService_SupliersToSales AS SELECT
+  Supplier_1.Email,
+  Category_2.name,
+  Currency_4.ID,
+  Currency_4.Description
+FROM ((((com_logali_Materials_Products AS Products_0 LEFT JOIN com_logali_sales_Suppliers AS Supplier_1 ON Products_0.Supplier_ID = Supplier_1.ID) LEFT JOIN com_logali_Materials_Categories AS Category_2 ON Products_0.Category_ID = Category_2.ID) LEFT JOIN com_logali_sales_SalesData AS SalesData_3 ON (SalesData_3.Product_ID = Products_0.ID)) LEFT JOIN com_logali_Materials_Currencies AS Currency_4 ON SalesData_3.Currency_ID = Currency_4.ID);
+
+CREATE VIEW MyService_EntityInfix AS SELECT
+  Supplier_1.Phone
+FROM (com_logali_Materials_Products AS Products_0 LEFT JOIN com_logali_sales_Suppliers AS Supplier_1 ON (Products_0.Supplier_ID = Supplier_1.ID) AND (Supplier_1.Name = 'Exotic Liquids'))
+WHERE Products_0.Name = 'Bread';
+
+CREATE VIEW MyService_EntityJoin AS SELECT
+  supp_1.Phone
+FROM (com_logali_Materials_Products AS Products_0 LEFT JOIN com_logali_sales_Suppliers AS supp_1 ON (supp_1.ID = Products_0.Supplier_ID) AND supp_1.Name = 'Exotic Liquids')
+WHERE Products_0.Name = 'Bread';
+
+CREATE VIEW Reports_EntityCasting AS SELECT
+  CAST(Products_0.Price AS INTEGER) AS Price,
+  Products_0.Price AS Price2
+FROM com_logali_Materials_Products AS Products_0;
+
+CREATE VIEW Reports_EntityExists AS SELECT
+  Products_0.Name
+FROM com_logali_Materials_Products AS Products_0
+WHERE EXISTS (SELECT
+    1 AS dummy
+  FROM com_logali_sales_Suppliers AS _Supplier_exists_1
+  WHERE _Supplier_exists_1.ID = Products_0.Supplier_ID AND _Supplier_exists_1.Name = 'Exotic Liquids');
+
+CREATE VIEW com_logali_SelProducts AS SELECT
+  Products_0.ID,
+  Products_0.Name,
+  Products_0.Description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Suppliers_Id,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMesasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID
+FROM com_logali_Materials_Products AS Products_0;
 
 CREATE VIEW com_logali_ProjProducts AS SELECT
   Products_0.ID,
-  Products_0.createdAt,
-  Products_0.createdBy,
-  Products_0.modifiedAt,
-  Products_0.modifiedBy,
   Products_0.Name,
   Products_0.Description,
   Products_0.ImageURL,
@@ -227,104 +315,115 @@ CREATE VIEW com_logali_ProjProducts AS SELECT
   Products_0.Suppliers_Id,
   Products_0.Supplier_ID,
   Products_0.UnitOfMesasures_ID,
-  Products_0.ToUnitOfMesasures_ID_ID,
   Products_0.Currency_ID,
   Products_0.DimensionUnits_ID,
-  Products_0.Category_ID,
-  Products_0.PriceCondition,
-  Products_0.PriceDetermination
-FROM com_logali_Products AS Products_0;
+  Products_0.Category_ID
+FROM com_logali_Materials_Products AS Products_0;
 
-CREATE VIEW localized_com_logali_Products AS SELECT
-  L_0.ID,
-  L_0.createdAt,
-  L_0.createdBy,
-  L_0.modifiedAt,
-  L_0.modifiedBy,
-  coalesce(localized_1.Name, L_0.Name) AS Name,
-  coalesce(localized_1.Description, L_0.Description) AS Description,
-  L_0.ImageURL,
-  L_0.ReleaseDate,
-  L_0.DiscontinuedDate,
-  L_0.Price,
-  L_0.Height,
-  L_0.Width,
-  L_0.Depth,
-  L_0.Quantity,
-  L_0.Suppliers_Id,
-  L_0.Supplier_ID,
-  L_0.UnitOfMesasures_ID,
-  L_0.ToUnitOfMesasures_ID_ID,
-  L_0.Currency_ID,
-  L_0.DimensionUnits_ID,
-  L_0.Category_ID,
-  L_0.PriceCondition,
-  L_0.PriceDetermination
-FROM (com_logali_Products AS L_0 LEFT JOIN com_logali_Products_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+CREATE VIEW com_logali_ProjProducts2 AS SELECT
+  Products_0.ID,
+  Products_0.Name,
+  Products_0.Description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Suppliers_Id,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMesasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID
+FROM com_logali_Materials_Products AS Products_0;
 
-CREATE VIEW localized_com_logali_Suppliers AS SELECT
-  L_0.ID,
-  L_0.createdAt,
-  L_0.createdBy,
-  L_0.modifiedAt,
-  L_0.modifiedBy,
-  coalesce(localized_1.Name, L_0.Name) AS Name,
-  L_0.Address_Street,
-  L_0.Address_City,
-  L_0.Address_State,
-  L_0.Address_PostalCode,
-  L_0.Address_Country,
-  L_0.Email,
-  L_0.Phone,
-  L_0.Fax
-FROM (com_logali_Suppliers AS L_0 LEFT JOIN com_logali_Suppliers_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+CREATE VIEW com_logali_ProjProducts3 AS SELECT
+  Products_0.ReleaseDate,
+  Products_0.Name
+FROM com_logali_Materials_Products AS Products_0;
 
-CREATE VIEW localized_com_logali_Categories AS SELECT
-  L_0.ID,
-  coalesce(localized_1.name, L_0.name) AS name
-FROM (com_logali_Categories AS L_0 LEFT JOIN com_logali_Categories_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+CREATE VIEW com_logali_sales_SelProducts1 AS SELECT
+  Products_0.ID,
+  Products_0.Name,
+  Products_0.Description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.Suppliers_Id,
+  Products_0.Supplier_ID,
+  Products_0.UnitOfMesasures_ID,
+  Products_0.Currency_ID,
+  Products_0.DimensionUnits_ID,
+  Products_0.Category_ID
+FROM com_logali_Materials_Products AS Products_0;
 
-CREATE VIEW localized_com_logali_StockAvailability AS SELECT
-  L_0.ID,
-  coalesce(localized_1.Description, L_0.Description) AS Description,
-  L_0.Product_ID
-FROM (com_logali_StockAvailability AS L_0 LEFT JOIN com_logali_StockAvailability_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+CREATE VIEW com_logali_sales_SelProducts2 AS SELECT
+  Products_0.Name,
+  Products_0.Price,
+  Products_0.Quantity
+FROM com_logali_Materials_Products AS Products_0;
 
-CREATE VIEW localized_com_logali_Currencies AS SELECT
-  L_0.ID,
-  coalesce(localized_1.Description, L_0.Description) AS Description
-FROM (com_logali_Currencies AS L_0 LEFT JOIN com_logali_Currencies_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
-
-CREATE VIEW localized_com_logali_UnitOfMesasures AS SELECT
-  L_0.ID,
-  coalesce(localized_1.Description, L_0.Description) AS Description
-FROM (com_logali_UnitOfMesasures AS L_0 LEFT JOIN com_logali_UnitOfMesasures_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
-
-CREATE VIEW localized_com_logali_DimensionUnits AS SELECT
-  L_0.ID,
-  coalesce(localized_1.Description, L_0.Description) AS Description
-FROM (com_logali_DimensionUnits AS L_0 LEFT JOIN com_logali_DimensionUnits_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
-
-CREATE VIEW localized_com_logali_Months AS SELECT
-  L_0.ID,
-  coalesce(localized_1.Description, L_0.Description) AS Description,
-  coalesce(localized_1.ShortDescription, L_0.ShortDescription) AS ShortDescription
-FROM (com_logali_Months AS L_0 LEFT JOIN com_logali_Months_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
-
-CREATE VIEW localized_com_logali_SelProducts3 AS SELECT
+CREATE VIEW com_logali_sales_SelProducts3 AS SELECT
   ProductReview_1.Rating,
   Products_0.Name,
   sum(Products_0.Price) AS TotalPrice
-FROM (localized_com_logali_Products AS Products_0 LEFT JOIN com_logali_ProductReview AS ProductReview_1 ON Products_0.Name = ProductReview_1.Name)
+FROM (com_logali_Materials_Products AS Products_0 LEFT JOIN com_logali_Materials_ProductReview AS ProductReview_1 ON Products_0.Name = ProductReview_1.Name)
 GROUP BY ProductReview_1.Rating, Products_0.Name
 ORDER BY Rating;
 
-CREATE VIEW localized_com_logali_ProjProducts AS SELECT
+CREATE VIEW com_logali_reports_AverageRating AS SELECT
+  ProductReview_0.Product_ID AS ProductId,
+  avg(ProductReview_0.Rating) AS AverageRating
+FROM com_logali_Materials_ProductReview AS ProductReview_0
+GROUP BY ProductReview_0.Product_ID;
+
+CREATE VIEW localized_com_logali_Materials_Categories AS SELECT
+  L_0.ID,
+  coalesce(localized_1.name, L_0.name) AS name
+FROM (com_logali_Materials_Categories AS L_0 LEFT JOIN com_logali_Materials_Categories_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+
+CREATE VIEW localized_com_logali_Materials_StockAvailability AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description,
+  L_0.Product_ID
+FROM (com_logali_Materials_StockAvailability AS L_0 LEFT JOIN com_logali_Materials_StockAvailability_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+
+CREATE VIEW localized_com_logali_Materials_Currencies AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description
+FROM (com_logali_Materials_Currencies AS L_0 LEFT JOIN com_logali_Materials_Currencies_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+
+CREATE VIEW localized_com_logali_Materials_UnitOfMesasures AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description
+FROM (com_logali_Materials_UnitOfMesasures AS L_0 LEFT JOIN com_logali_Materials_UnitOfMesasures_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+
+CREATE VIEW localized_com_logali_Materials_DimensionUnits AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description
+FROM (com_logali_Materials_DimensionUnits AS L_0 LEFT JOIN com_logali_Materials_DimensionUnits_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+
+CREATE VIEW localized_com_logali_sales_Months AS SELECT
+  L_0.ID,
+  coalesce(localized_1.Description, L_0.Description) AS Description,
+  coalesce(localized_1.ShortDescription, L_0.ShortDescription) AS ShortDescription
+FROM (com_logali_sales_Months AS L_0 LEFT JOIN com_logali_sales_Months_texts AS localized_1 ON localized_1.ID = L_0.ID AND localized_1.locale = session_context( '$user.locale' ));
+
+CREATE VIEW Reports_AverageRating AS SELECT
+  AverageRating_0.ProductId,
+  AverageRating_0.AverageRating
+FROM com_logali_reports_AverageRating AS AverageRating_0;
+
+CREATE VIEW com_logali_reports_Products AS SELECT
   Products_0.ID,
-  Products_0.createdAt,
-  Products_0.createdBy,
-  Products_0.modifiedAt,
-  Products_0.modifiedBy,
   Products_0.Name,
   Products_0.Description,
   Products_0.ImageURL,
@@ -338,11 +437,95 @@ CREATE VIEW localized_com_logali_ProjProducts AS SELECT
   Products_0.Suppliers_Id,
   Products_0.Supplier_ID,
   Products_0.UnitOfMesasures_ID,
-  Products_0.ToUnitOfMesasures_ID_ID,
   Products_0.Currency_ID,
   Products_0.DimensionUnits_ID,
   Products_0.Category_ID,
-  Products_0.PriceCondition,
-  Products_0.PriceDetermination
-FROM localized_com_logali_Products AS Products_0;
+  ToAverageRating_1.AverageRating AS Rating,
+  CASE WHEN Products_0.Quantity >= 8 THEN 3 WHEN Products_0.Quantity > 0 THEN 2 ELSE 1 END AS StockAvailability
+FROM (com_logali_Materials_Products AS Products_0 LEFT JOIN com_logali_reports_AverageRating AS ToAverageRating_1 ON ToAverageRating_1.ProductId = Products_0.ID);
+
+CREATE VIEW localized_CatalogService_SalesData AS SELECT
+  SalesData_0.ID,
+  SalesData_0.DeliveryDate,
+  SalesData_0.Revenue,
+  SalesData_0.Currency_ID AS CurrencyKey,
+  DeliveryMonth_1.ID AS DeliveryMonthId,
+  DeliveryMonth_1.Description AS DeliveryMonth,
+  SalesData_0.Product_ID AS ToProduct_ID
+FROM (com_logali_sales_SalesData AS SalesData_0 LEFT JOIN localized_com_logali_sales_Months AS DeliveryMonth_1 ON SalesData_0.DeliveryMonth_ID = DeliveryMonth_1.ID);
+
+CREATE VIEW localized_CatalogService_StockAvailability AS SELECT
+  StockAvailability_0.ID,
+  StockAvailability_0.Description,
+  StockAvailability_0.Product_ID AS ToProduct_ID
+FROM localized_com_logali_Materials_StockAvailability AS StockAvailability_0;
+
+CREATE VIEW localized_CatalogService_VH_Categories AS SELECT
+  Categories_0.ID AS Code,
+  Categories_0.name AS Text
+FROM localized_com_logali_Materials_Categories AS Categories_0;
+
+CREATE VIEW localized_CatalogService_VH_Currencies AS SELECT
+  Currencies_0.ID AS Code,
+  Currencies_0.Description AS Text
+FROM localized_com_logali_Materials_Currencies AS Currencies_0;
+
+CREATE VIEW localized_CatalogService_VH_UnitOfMeasure AS SELECT
+  UnitOfMesasures_0.ID AS Code,
+  UnitOfMesasures_0.Description AS Text
+FROM localized_com_logali_Materials_UnitOfMesasures AS UnitOfMesasures_0;
+
+CREATE VIEW localized_CatalogService_VH_DimensionUnit AS SELECT
+  DimensionUnits_0.ID AS Code,
+  DimensionUnits_0.Description AS Text
+FROM localized_com_logali_Materials_DimensionUnits AS DimensionUnits_0;
+
+CREATE VIEW localized_MyService_SupliersToSales AS SELECT
+  Supplier_1.Email,
+  Category_2.name,
+  Currency_4.ID,
+  Currency_4.Description
+FROM ((((com_logali_Materials_Products AS Products_0 LEFT JOIN com_logali_sales_Suppliers AS Supplier_1 ON Products_0.Supplier_ID = Supplier_1.ID) LEFT JOIN localized_com_logali_Materials_Categories AS Category_2 ON Products_0.Category_ID = Category_2.ID) LEFT JOIN com_logali_sales_SalesData AS SalesData_3 ON (SalesData_3.Product_ID = Products_0.ID)) LEFT JOIN localized_com_logali_Materials_Currencies AS Currency_4 ON SalesData_3.Currency_ID = Currency_4.ID);
+
+CREATE VIEW CatalogService_Products AS SELECT
+  Products_0.ID,
+  Products_0.Name AS ProductName,
+  Products_0.Description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.UnitOfMesasures_ID AS ToUnitOfMeasure_ID,
+  Products_0.Currency_ID AS ToCurrency_ID,
+  Products_0.Category_ID AS ToCategory_ID,
+  Category_1.name AS Category,
+  Products_0.DimensionUnits_ID AS ToDimensionUnit_ID,
+  Products_0.Supplier_ID,
+  Products_0.StockAvailability
+FROM (com_logali_reports_Products AS Products_0 LEFT JOIN com_logali_Materials_Categories AS Category_1 ON Products_0.Category_ID = Category_1.ID);
+
+CREATE VIEW localized_CatalogService_Products AS SELECT
+  Products_0.ID,
+  Products_0.Name AS ProductName,
+  Products_0.Description,
+  Products_0.ImageURL,
+  Products_0.ReleaseDate,
+  Products_0.DiscontinuedDate,
+  Products_0.Price,
+  Products_0.Height,
+  Products_0.Width,
+  Products_0.Depth,
+  Products_0.Quantity,
+  Products_0.UnitOfMesasures_ID AS ToUnitOfMeasure_ID,
+  Products_0.Currency_ID AS ToCurrency_ID,
+  Products_0.Category_ID AS ToCategory_ID,
+  Category_1.name AS Category,
+  Products_0.DimensionUnits_ID AS ToDimensionUnit_ID,
+  Products_0.Supplier_ID,
+  Products_0.StockAvailability
+FROM (com_logali_reports_Products AS Products_0 LEFT JOIN localized_com_logali_Materials_Categories AS Category_1 ON Products_0.Category_ID = Category_1.ID);
 
