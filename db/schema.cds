@@ -16,7 +16,7 @@ type Address {
     Country    : String(3);
 };
 
-type Dec  : Decimal(16, 2);
+type Dec : Decimal(16, 2);
 
 context materials {
 
@@ -78,16 +78,13 @@ context materials {
     entity SelProducts   as select from Products;
     entity ProjProducts  as projection on Products;
 
-    entity ProjProducts2 as
-        projection on Products {
-            *
-        };
+    entity ProjProducts2 as projection on Products {
+        *
+    };
 
-    entity ProjProducts3 as
-        projection on Products {
-            ReleaseDate,
-            Name
-        };
+    entity ProjProducts3 as projection on Products {
+        ReleaseDate, Name
+    };
 
     extend Products with {
         PriceCondition     : String(2);
@@ -146,7 +143,9 @@ context sales {
         {
             Rating,
             Products.Name,
-            sum(Price) as TotalPrice
+            sum(
+                Price
+            ) as TotalPrice
         }
         group by
             Rating,
@@ -167,8 +166,10 @@ context reports {
 
     entity AverageRating as
         select from logali.materials.ProductReview {
-            Product.ID  as ProductId,
-            avg(Rating) as AverageRating : Decimal(16, 2)
+            Product.ID as ProductId,
+            avg(
+                Rating
+            )          as AverageRating : Decimal(16, 2)
         }
         group by
             Product.ID;
@@ -186,11 +187,16 @@ context reports {
             *,
             ToAverageRating.AverageRating as Rating,
             case
-                when Quantity >= 8
-                     then 3
-                when Quantity > 0
-                     then 2
-                else 1
+                when
+                    Quantity >= 8
+                then
+                    3
+                when
+                    Quantity > 0
+                then
+                    2
+                else
+                    1
             end                           as StockAvailability : Integer,
             ToStockAvailibilty
         }

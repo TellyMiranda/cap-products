@@ -6,14 +6,34 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@sap-cloud-sdk/connectivity": "^3",
+    "@sap-cloud-sdk/http-client": "^3",
+    "@sap-cloud-sdk/resilience": "^3",
     "@sap/cds": "^8",
+    "cors": "^2.8.5",
     "express": "^4"
   },
   "devDependencies": {
+    "@cap-js/cds-types": "^0.10.0",
     "@cap-js/sqlite": "^1",
-    "@cap-js/cds-types": "^0.10.0"
+    "cds-plugin-ui5": "^0.13.0"
   },
   "scripts": {
-    "start": "cds watch"
-  }
+    "start": "cds watch",
+    "watch-product": "cds watch --open logaligroup.product/index.html?sap-ui-xx-viewCache=false --livereload false"
+  },
+  "cds": {
+    "requires": {
+      "sapbackend": {
+        "kind": "odata-v2",
+        "model": "srv/external/sapbackend"
+      }
+    }
+  },
+  "workspaces": [
+    "app/*"
+  ],
+  "sapux": [
+    "app/product"
+  ]
 }

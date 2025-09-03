@@ -1,9 +1,5 @@
 namespace com.training;
-
-using {
-    cuid,
-    Country
-} from '@sap/cds/common';
+using {cuid, Country} from '@sap/cds/common';
 
 entity Course : cuid {
     Student : Association to many StudentCourse
