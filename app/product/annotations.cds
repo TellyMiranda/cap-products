@@ -2,6 +2,19 @@ using CatalogService as service from '../../srv/catalog-service';
 
 annotate service.Products with @(
 
+    Capabilities                 : {DeleteRestrictions: {
+        $Type    : 'Capabilities.DeleteRestrictionsType',
+        Deletable: false
+    }, },
+
+    UI.HeaderInfo                : {
+        TypeName      : 'Product',
+        TypeNamePlural: 'Products',
+        ImageUrl      : ImageUrl,
+        Title         : {Value: ProductName},
+        Description   : {Value: Description}
+    },
+
     UI.FieldGroup #GeneratedGroup: {
         $Type: 'UI.FieldGroupType',
         Data : [
@@ -81,23 +94,38 @@ annotate service.Products with @(
                 Value: ToDimensionUnit_ID,
             },
             {
-                $Type: 'UI.DataField',
-                Label: 'Rating',
-                Value: Rating,
+                //  $Type: 'UI.DataField',
+                Label : 'Rating',
+                //Value: Rating,
+                $Type : 'UI.DataFieldForAnnotation',
+                Target: '@UI.DataPoint#AverageRating'
             },
             {
                 $Type: 'UI.DataField',
                 Label: 'StockAvailability',
                 Value: StockAvailability,
-            },
+            }
         ],
     },
-    UI.Facets                    : [{
+    UI.Facets                    : [
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID    : 'GeneratedFacet1',
+            Label : 'General Information',
+            Target: '@UI.FieldGroup#GeneratedGroup',
+        },
+        {
+            $Type : 'UI.ReferenceFacet',
+            ID    : 'GeneratedFacet2',
+            Label : 'General Information copia',
+            Target: '@UI.FieldGroup#GeneratedGroup',
+        }
+    ],
+    UI.HeaderFacets              : [{
         $Type : 'UI.ReferenceFacet',
-        ID    : 'GeneratedFacet1',
-        Label : 'General Information',
-        Target: '@UI.FieldGroup#GeneratedGroup',
-    }, ],
+        Target: '@UI.DataPoint#AverageRating',
+    }],
+
     UI.SelectionFields           : [
         ToCategory_ID,
         ToCurrency_ID,
@@ -108,6 +136,11 @@ annotate service.Products with @(
             $Type: 'UI.DataField',
             Label: 'ProductName',
             Value: ProductName,
+        },
+        {
+            $Type : 'UI.DataFieldForAnnotation',
+            Label : 'Supplier',
+            Target: 'Supplier/@comunication.Contact',
         },
         {
             $Type: 'UI.DataField',
@@ -129,6 +162,24 @@ annotate service.Products with @(
             Label: 'DiscontinuedDate',
             Value: DiscontinuedDate,
         },
+        {
+            Label      : 'Stock Availability',
+            Value      : StockAvailability,
+            Criticality: StockAvailability
+        },
+        {
+            // $Type: 'UI.DataField',
+            Label : 'Rating',
+            // Value: Rating,
+            $Type : 'UI.DataFieldForAnnotation',
+            Target: '@UI.DataPoint#AverageRating'
+
+        },
+        {
+            $Type: 'UI.DataField',
+            Label: 'Price',
+            Value: Price,
+        }
     ],
 );
 
@@ -162,3 +213,144 @@ annotate service.Products with {
     }
 };
 
+annotate service.Products with {
+    ImageUrl @(UI.IsImageURL: true)
+};
+
+
+//Anotations for SH
+annotate service.Products with {
+    //Category
+    ToCategory        @(Common: {
+        Text     : {
+            $value                : Category,
+            ![@UI.TextArrangement]: #TextOnly,
+        },
+        ValueList: {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'VH_Categories',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ToCategory_ID,
+                    ValueListProperty: 'Code'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ToCategory_ID,
+                    ValueListProperty: 'Text'
+                }
+            ]
+        },
+    });
+    //Currency
+    ToCurrency        @(Common: {
+        ValueListWithFixedValues: false,
+        ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'VH_Currencies',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: ToCurrency_ID,
+                    ValueListProperty: 'Code'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterDisplayOnly',
+                    ValueListProperty: 'Text'
+                }
+            ]
+
+        },
+    });
+
+    StockAvailability @(Common: {
+        ValueListWithFixedValues: true,
+        ValueList               : {
+            $Type         : 'Common.ValueListType',
+            CollectionPath: 'StockAvailability',
+            Parameters    : [
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: StockAvailability,
+                    ValueListProperty: 'ID'
+                },
+                {
+                    $Type            : 'Common.ValueListParameterInOut',
+                    LocalDataProperty: StockAvailability,
+                    ValueListProperty: 'Description'
+                }
+            ]
+        },
+    })
+};
+
+//Anotations for VH_Categories Entities
+annotate service.VH_Categories with {
+    Code
+    @(
+        UI    : {Hidden: true},
+        Common: {Text: {
+            $value                : Text,
+            ![@UI.TextArrangement]: #TextOnly,
+        }}
+    );
+
+    Text
+    @(UI: {Hidden: true});
+};
+
+//Anotations for VH_Currency Entity
+annotate service.VH_Currencies {
+    Code @(UI: {HiddenFilter: true});
+    Text @(UI: {HiddenFilter: true});
+};
+
+//Anotations for StockAvailability
+annotate service.StockAvailability {
+    ID @(Common: {Text: {
+        $value                : Description,
+        ![@UI.TextArrangement]: #TextOnly,
+    }, })
+
+};
+
+annotate service.VH_UnitOfMeasure {
+    Code @(UI: {HiddenFilter: true});
+    Text @(UI: {HiddenFilter: true});
+};
+
+annotate service.VH_DimensionUnits {
+    Code @(UI: {HiddenFilter: true});
+    Text @(UI: {HiddenFilter: true});
+};
+
+// //**Anotation for Supplier Entity
+annotate service.Supplier with @(Communication: {Contact: {
+    $Type: 'Communication.ContactType',
+    fn   : Name,
+    role : 'Supplier',
+    photo: 'sap-icon://supplier',
+    email: [{
+        type   : #work,
+        address: Email
+    }],
+    tel  : [
+        {
+            type: #work,
+            uri : Phone
+        },
+        {
+            type: #fax,
+            uri : Fax
+        }
+    ]
+}, });
+
+annotate service.Products with @(UI.DataPoint #AverageRating: {
+    Value        : Rating,
+    Title        : 'Rating',
+    TargetValue  : 5,
+    Visualization: #Rating
+
+});
